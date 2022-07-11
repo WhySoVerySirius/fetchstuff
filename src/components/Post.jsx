@@ -13,7 +13,7 @@ export default function Post ({data})
 
     useEffect(()=>{
         axios
-            .get('https://jsonplaceholder.typicode.com/comments?postId?=' + id)
+            .get('https://jsonplaceholder.typicode.com/comments?postId='+id)
             .then(res=>setComments(res.data))
             .catch(err=>setError(err))
             .finally(setCommentsAreLoading(false))
