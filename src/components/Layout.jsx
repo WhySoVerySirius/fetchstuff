@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Post from "./Post";
 import { createContext } from "react";
+import User from "./User";
 
 export const PostsContext = createContext();
 
@@ -37,7 +38,7 @@ export default function Layout()
         return (
             <PostsContext.Provider value={posts}>
                 {console.log(users)}
-                {users.map(user=><Post data={user} key={user.id}/>)}
+                {users.map(user=><User key={user.id} user={user}/>)}
             </PostsContext.Provider>
         )
     }

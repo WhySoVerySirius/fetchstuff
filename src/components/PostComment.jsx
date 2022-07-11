@@ -1,8 +1,14 @@
 import React from "react";
 
-export default function PostComment({data})
+export default function PostComment({comment})
 {
+    const {name, email, body} = comment
+    
     return (
-        <h2>{data}</h2>
+        <div>
+            <div><strong>{name}</strong></div>
+            <div>{body}</div>
+            <div>{email}</div>
+        </div>
     )
 }
