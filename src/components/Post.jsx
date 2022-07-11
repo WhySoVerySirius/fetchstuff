@@ -3,7 +3,7 @@ import React, {useState, useEffect} from "react";
 import PostBody from "./PostBody";
 import PostComment from "./PostComment";
 
-export default function Post ({data})
+export default function Post ({data, active, handle})
 {
     const [visible, setVisible] = useState(false);
     const {id, title, body} = data;
@@ -21,27 +21,24 @@ export default function Post ({data})
     [])
 
 
-    if(!visible) {
-        return (
-                <div className="" onClick={()=>setVisible(!visible)}>
-                    <PostBody data={[title, body]}/>
-                </div>
-        )
+    if(commentsAreLoading){
+        return <div>Loading...</div>
     }
-    if(visible && !error && !commentsAreLoading && comments) {
+    if(visible && !error && !commentsAreLoading && comments && active===id) {
         return (
-            <div className="" onClick={()=>setVisible(!visible)}>
-                <div className="" onClick={()=>setVisible(!visible)}>
+                <div className="" onClick={()=>{setVisible(!visible)}}>
                     <PostBody data={[title, body]}/>
-                    {console.log(comments)}
                     {comments.map(comment=><PostComment key={id} comment={comment}/>)}
                 </div>
-            </div>
         )
     }
     if(error)
     {
         return <div>Something went wrong</div>
     }
-    return <h1>Loading...</h1>
+    return (
+        <div className="" onClick={()=>{setVisible(!visible);handle(id)}}>
+            <PostBody data={[title, body]}/>
+        </div>
+)
 }

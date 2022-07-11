@@ -13,6 +13,7 @@ export default function Layout()
     const [posts, setPosts] = useState(null);
     const [postsAreLoading, setPostsAreLoading] = useState(true);
     const [error, setError] = useState('');
+    const [active, setActive] = useState('');
     
     useEffect(()=>{
         axios
@@ -30,6 +31,8 @@ export default function Layout()
         []
     )
 
+    const click = (id) => setActive(id);
+
     if(usersAreLoading && postsAreLoading)
     {
         return <h1>Loading...</h1>
@@ -37,8 +40,7 @@ export default function Layout()
     if(error === '' && users && posts) {
         return (
             <PostsContext.Provider value={posts}>
-                {console.log(users)}
-                {users.map(user=><User key={user.id} user={user}/>)}
+                {users.map(user=><User key={user.id} user={user} click={click} active={active}/>)}
             </PostsContext.Provider>
         )
     }
